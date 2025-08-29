@@ -1,6 +1,6 @@
 # linear-regression
 
-##### This project is a very simple linear regression model using only NumPy. And a comparison to scikit-learn's built-in LinearRegression. The dataset used is the California Housing dataset.
+### This project is a very simple linear regression model using only NumPy. And a comparison to scikit-learn's built-in LinearRegression. The dataset used is the California Housing dataset.
 
 ## Requirements 
 - python 3
