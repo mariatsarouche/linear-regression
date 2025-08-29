@@ -22,6 +22,7 @@ def verifyArrays(X, y):
     rowsMatch(X, y)
     check1D(y)
 
+
 def createNewX(X):
     return np.append(X, np.ones((X.shape[0], 1), dtype=int), axis=1)
 
@@ -33,7 +34,13 @@ def computeTH(X, y):
 def checkIfTrained(w, b):
     if w is None or b is None:
         raise ValueError(f"The model isn't trained")
-    
+
+
+def computeMSE(N, yEst, y):
+    err = yEst - y
+    return np.dot(err.T, err) / N
+
+
 class LinearRegression:
 
     def fit(self, X, y):
@@ -49,6 +56,10 @@ class LinearRegression:
         checkIfTrained(self.w, self.b)
         return np.dot(X, self.w) + self.b
 
+    def evaluate(self, X, y):
+        yEst = self.predict(X)
+        MSE = computeMSE(len(y), yEst, self.y)
+        return yEst, MSE
 
     def __init__(self):
         self.w = None
