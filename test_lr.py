@@ -2,7 +2,7 @@ from sklearn.datasets import fetch_california_housing
 from sklearn.model_selection import train_test_split
 from linear_regression import LinearRegression
 from sklearn.linear_model import LinearRegression as skLinearRegression
-from sklearn.metrics import mean_squared_error, r2_score
+from sklearn.metrics import mean_squared_error
 import numpy as np
 
 
@@ -16,13 +16,12 @@ def main():
 
 
 def myImplementation(X, y):
-    lr = LinearRegression()
-    RMSE_test = rmse(X, y, lr, 42)
+    RMSE_test = rmse(X, y, 42)
     print("My implementation.\nThe Root Mean Squared Error of test data is", RMSE_test)
 
     listOfRMSE = []
     for i in range(20):
-        listOfRMSE.append(rmse(X, y, lr, i))
+        listOfRMSE.append(rmse(X, y, i))
 
     meanRMSE = np.mean(listOfRMSE)
     stdRMSE = np.std(listOfRMSE)
@@ -30,22 +29,22 @@ def myImplementation(X, y):
     print("The standard deviation of the Root Mean Squared Error is: ", stdRMSE)
 
 
-def rmse(X, y, lr, seed):  # my implementation
+def rmse(X, y, seed):  # my implementation
+    lr = LinearRegression()
     # 70% for training, 30% for testing
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=seed)
 
     lr.fit(X_train, y_train)
-    yEst_train, MSE_train = lr.evaluate(X_train, y_train)
-    RMSE_train = MSE_train ** 0.5
+    yEst_test, MSE_test = lr.evaluate(X_test, y_test)
+    RMSE_test = MSE_test ** 0.5
 
-    return RMSE_train
+    return RMSE_test
 
 
 def skLearnImplementation(X, y):
-    sk = skLinearRegression()
     listOfRMSE = []
     for i in range(20):
-        listOfRMSE.append(getRmse(X, y, i, sk))
+        listOfRMSE.append(getRmse(X, y, i))
 
     meanRMSE = np.mean(listOfRMSE)
     stdRMSE = np.std(listOfRMSE)
@@ -53,7 +52,8 @@ def skLearnImplementation(X, y):
     print("The standard deviation of the Root Mean Squared Error is: ", stdRMSE)
 
 
-def getRmse(X, y, seed, sk):
+def getRmse(X, y, seed):
+    sk = skLinearRegression()
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=seed)
     sk.fit(X_train, y_train)
     yEst = sk.predict(X_test)
