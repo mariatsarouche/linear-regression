@@ -8,7 +8,7 @@ def checkIfNpArray(array, name=None):
 
 def rowsMatch(inp, out):
     if not inp.shape[0] == out.shape[0]:
-        raise ValueError(f"Arrays dont have the same amount of rows.")
+        raise ValueError(f"Arrays don't have the same amount of rows.")
 
 
 def check1D(y):
@@ -64,8 +64,17 @@ class LinearRegression:
         MSE = computeMSE(len(y), yEst, y)
         return yEst, MSE
 
+    def getMean(self, listPar):
+        self.listPar = listPar
+        return np.mean(listPar)
+
+    def getStd(self, listPar):
+        self.listPar = listPar
+        return np.std(listPar)
+
     def __init__(self):
         self.w = None
         self.b = None
         self.X = None
         self.y = None
+        self.listPar = None
