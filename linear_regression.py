@@ -13,27 +13,30 @@ def rowsMatch(inp, out):
 
 def check1D(y):
     if y.ndim != 1:
-        raise ValueError(f"y must be 1D, it's {y.ndim}D")
+        raise ValueError(f"y must be 1D, it's {y.ndim}D.")
 
 
 def verifyArrays(X, y):
+    # check if both are numpy array
     checkIfNpArray(X, "X")
     checkIfNpArray(y, "y")
-    rowsMatch(X, y)
-    check1D(y)
+    rowsMatch(X, y)   # check if dimensions are compatible
+    check1D(y)  # y must be 1d
 
 
 def createNewX(X):
+    # adds a row of 1 to x for bias
     return np.append(X, np.ones((X.shape[0], 1), dtype=int), axis=1)
 
 
 def computeTH(X, y):
+    # solve normal equations to find theta
     return np.dot(np.linalg.inv(np.dot(X.T, X)), np.dot(X.T, y))
 
 
 def checkIfTrained(w, b):
-    if w is None or b is None:
-        raise ValueError(f"The model isn't trained")
+    if w is None or b is None: # if w or b doesn't exist it's not trained
+        raise ValueError(f"The model isn't trained.")
 
 
 def computeMSE(N, yEst, y):
@@ -49,16 +52,16 @@ class LinearRegression:
         self.y = y
         newX = createNewX(X)
         theta = computeTH(newX, y)
-        self.w = theta[:-1]
-        self.b = theta[-1]
+        self.w = theta[:-1]  # all except from last
+        self.b = theta[-1]   # only last
 
     def predict(self, X):
         checkIfTrained(self.w, self.b)
-        return np.dot(X, self.w) + self.b
+        return np.dot(X, self.w) + self.b  # return predictions
 
     def evaluate(self, X, y):
-        yEst = self.predict(X)
-        MSE = computeMSE(len(y), yEst, self.y)
+        yEst = self.predict(X)  # yEst is estimations/predictions that are produced
+        MSE = computeMSE(len(y), yEst, y)
         return yEst, MSE
 
     def __init__(self):
