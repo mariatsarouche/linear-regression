@@ -64,17 +64,8 @@ class LinearRegression:
         MSE = computeMSE(len(y), yEst, y)
         return yEst, MSE
 
-    def getMean(self, listPar):
-        self.listPar = listPar
-        return np.mean(listPar)
-
-    def getStd(self, listPar):
-        self.listPar = listPar
-        return np.std(listPar)
-
     def __init__(self):
         self.w = None
         self.b = None
         self.X = None
         self.y = None
-        self.listPar = None
