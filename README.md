@@ -7,6 +7,11 @@
 - numpy
 - scikit-learn
 
+## Files
+- linear_regression.py: my implementation of class LinearRegression
+- test_lr.py: uses my implementation and scikit-learn's and prints out the Root Mean Squared Error and the standard deviation of Root Mean Squared Error
+- requirements.txt: the required libraries to run this
+
 ## How to run:
 - First clone the repo
 `git clone https://github.com/mariatsarouche/linear-regression.git`
